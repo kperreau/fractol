@@ -6,7 +6,7 @@
 #    By: kperreau <kperreau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/05 14:10:51 by kperreau          #+#    #+#              #
-#    Updated: 2016/06/28 17:38:47 by kperreau         ###   ########.fr        #
+#    Updated: 2016/10/21 15:24:56 by kperreau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ HEADERS = $(patsubst %, $(INCLUDESDIR)/%, $(HFILES))
 
 ERRORFLAGS = -Wall -Werror -Wextra -W -march=native -Ofast
 
-INCLUDEFLAGS = -I $(INCLUDESDIR)/ -I $(LIBDIR)/includes/ -I./minilibx
+INCLUDEFLAGS = -I $(INCLUDESDIR)/ -I $(LIBDIR)/includes/ -I./minilibx #-lpthread -D_REENTRANT
 
 # MLX = -L./minilibx -lmlx -L/lib -lXext -lx11
 MLX = -L./minilibx -lmlx -framework OpenGL -framework AppKit

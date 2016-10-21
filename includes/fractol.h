@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kperreau <kperreau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kperreau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/19 16:40:01 by kperreau          #+#    #+#             */
-/*   Updated: 2016/06/29 13:17:10 by kperreau         ###   ########.fr       */
+/*   Created: 2016/10/21 15:57:43 by kperreau          #+#    #+#             */
+/*   Updated: 2016/10/21 15:58:06 by kperreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,34 @@ typedef struct	s_img
 
 typedef struct	s_fractal
 {
-	t_color		color;
-	size_t		iter_max;
-	size_t		i;
-	char		type;
-	double		c_r;
-	double		c_i;
-	double		z_r;
-	double		z_i;
-	double		z;
-	double		v;
-	double		h;
-	double		x;
-	double		y;
-	double		var;
+	struct s_mlx	*mlx;
+	t_color			color;
+	size_t			iter_max;
+	size_t			i;
+	int				x_start;
+	int				x_end;
+	int				y_start;
+	int				y_end;
+	int				p_x;
+	int				p_y;
+	double			tmp;
+	char			type;
+	double			c_r;
+	double			c_i;
+	double			z_r;
+	double			z_i;
+	double			z;
+	double			v;
+	double			h;
+	double			x;
+	double			y;
+	double			var;
 }				t_fractal;
 
 typedef struct	s_mlx
 {
 	t_fractal	*fractal;
+	t_fractal	*fractals[16];
 	t_coord		mouse;
 	void		*mlx;
 	void		*win;
@@ -105,7 +114,9 @@ typedef struct	s_mlx
 	int			i_less;
 	int			i_more;
 	int			lock;
+	int			cores;
 	clock_t		clock_z;
+	clock_t		clock_var;
 }				t_mlx;
 
 /*
@@ -137,7 +148,7 @@ typedef struct	s_hwbm
 /*
 **INIT [MLX|VARS]
 */
-int				ft_init_mlx(t_mlx *mx, t_fractal *fractal, char type);
+int				ft_init_mlx(t_mlx *mx, t_fractal *f, int thread);
 void			ft_init_fractal(t_mlx *mx, t_fractal *f, char type, int disp);
 
 /*
@@ -158,8 +169,8 @@ int				mouse_hook(int x, int y, t_mlx *mx);
 int				mouse_btn_hook(int key, int x, int y, t_mlx *mx);
 int				key_loop_hook(t_mlx *mx);
 int				window(t_mlx *mx);
-void			ft_mandelbrot(t_mlx *mx, t_fractal *f);
-void			ft_julia(t_mlx *mx, t_fractal *f);
-void			ft_burningship(t_mlx *mx, t_fractal *f);
+void			*ft_mandelbrot(void *data);
+void			*ft_julia(void *data);
+void			*ft_burningship(void *data);
 
 #endif

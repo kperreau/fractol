@@ -31,89 +31,89 @@ static void		ft_set_pixel(char *data, int x, int y, t_fractal *f)
 	}
 }
 
-void			ft_mandelbrot(t_mlx *mx, t_fractal *f)
+void			*ft_mandelbrot(void *data)
 {
-	double		x;
-	double		y;
-	double		tmp;
+	t_fractal	*f;
 
-	x = -1;
-	while (++x < WIDTH)
+	f = data;
+	f->p_x = f->x_start - 1;
+	while (++f->p_x < f->x_end)
 	{
-		y = -1;
-		f->c_r = (x - WIDTH / 2) * f->z + f->x + f->h;
-		while (++y < HEIGHT)
+		f->p_y = f->y_start - 1;
+		f->c_r = (f->p_x - WIDTH / 2) * f->z + f->x + f->h;
+		while (++f->p_y < f->y_end)
 		{
-			f->c_i = (y - HEIGHT / 2) * f->z + f->y + f->v;
+			f->c_i = (f->p_y - HEIGHT / 2) * f->z + f->y + f->v;
 			f->z_i = 0;
 			f->z_r = 0;
 			f->i = -1;
 			while (!(++f->i) ||
 				(f->z_r * f->z_r + f->z_i * f->z_i < 4 && f->i < f->iter_max))
 			{
-				tmp = f->z_r;
+				f->tmp = f->z_r;
 				f->z_r = f->z_r * f->z_r - f->z_i * f->z_i + f->c_r;
-				f->z_i = 2 * f->z_i * tmp + f->c_i;
+				f->z_i = 2 * f->z_i * f->tmp + f->c_i;
 			}
-			ft_set_pixel(mx->data, x, y, f);
+			ft_set_pixel(f->mlx->data, f->p_x, f->p_y, f);
 		}
 	}
+	return (NULL);
 }
 
-void			ft_julia(t_mlx *mx, t_fractal *f)
+void			*ft_julia(void *data)
 {
-	double		x;
-	double		y;
-	double		tmp;
+	t_fractal	*f;
 
-	x = -1;
-	while (++x < WIDTH)
+	f = data;
+	f->p_x = f->x_start - 1;
+	while (++f->p_x < f->x_end)
 	{
-		y = -1;
+		f->p_y = f->y_start - 1;
 		f->c_r = 0.285;
-		while (++y < HEIGHT)
+		while (++f->p_y < f->y_end)
 		{
-			f->c_i = 0.01 * mx->fractal->var;
-			f->z_i = (y - HEIGHT / 2) * f->z + f->y + f->v;
-			f->z_r = (x - WIDTH / 2) * f->z + f->x + f->h;
+			f->c_i = 0.01 * f->var;
+			f->z_i = (f->p_y - HEIGHT / 2) * f->z + f->y + f->v;
+			f->z_r = (f->p_x - WIDTH / 2) * f->z + f->x + f->h;
 			f->i = -1;
 			while (!(++f->i) ||
 				(f->z_r * f->z_r + f->z_i * f->z_i < 4 && f->i < f->iter_max))
 			{
-				tmp = f->z_r;
+				f->tmp = f->z_r;
 				f->z_r = f->z_r * f->z_r - f->z_i * f->z_i + f->c_r;
-				f->z_i = 2 * f->z_i * tmp + f->c_i;
+				f->z_i = 2 * f->z_i * f->tmp + f->c_i;
 			}
-			ft_set_pixel(mx->data, x, y, f);
+			ft_set_pixel(f->mlx->data, f->p_x, f->p_y, f);
 		}
 	}
+	return (NULL);
 }
 
-void			ft_burningship(t_mlx *mx, t_fractal *f)
+void			*ft_burningship(void *data)
 {
-	double		x;
-	double		y;
-	double		tmp;
+	t_fractal	*f;
 
-	x = -1;
-	while (++x < WIDTH)
+	f = data;
+	f->p_x = f->x_start - 1;
+	while (++f->p_x < f->x_end)
 	{
-		y = -1;
-		f->c_r = (x - WIDTH / 2) * f->z + f->x + f->h;
-		while (++y < HEIGHT)
+		f->p_y = f->y_start - 1;
+		f->c_r = (f->p_x - WIDTH / 2) * f->z + f->x + f->h;
+		while (++f->p_y < f->y_end)
 		{
-			f->c_i = (y - HEIGHT / 2) * f->z + f->y + f->v;
+			f->c_i = (f->p_y - HEIGHT / 2) * f->z + f->y + f->v;
 			f->z_i = 0;
 			f->z_r = 0;
 			f->i = -1;
 			while (!(++f->i) ||
 				(f->z_r * f->z_r + f->z_i * f->z_i < 4 && f->i < f->iter_max))
 			{
-				tmp = f->z_r;
+				f->tmp = f->z_r;
 				f->z_r = f->z_r * f->z_r - f->z_i * f->z_i + f->c_r;
-				f->z_i = 2 * fabs(f->z_i) * fabs(tmp) + f->c_i;
+				f->z_i = 2 * fabs(f->z_i) * fabs(f->tmp) + f->c_i;
 			}
-			ft_set_pixel(mx->data, x, y, f);
+			ft_set_pixel(f->mlx->data, f->p_x, f->p_y, f);
 		}
 	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: kperreau <kperreau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 21:44:46 by kperreau          #+#    #+#             */
-/*   Updated: 2015/02/16 21:45:30 by kperreau         ###   ########.fr       */
+/*   Updated: 2016/10/21 16:01:09 by kperreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			ft_tofile(char *img)
 {
 	int		fd;
 
-	if ((fd = open("wolf3d.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
+	if ((fd = open("fractal.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
 		exit(0);
 	ft_tobipmap(fd, img, WIDTH, HEIGHT);
 	close(fd);

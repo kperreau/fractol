@@ -64,12 +64,16 @@ int				key_release_hook(int keycode, t_mlx *mx)
 
 int				mouse_hook(int x, int y, t_mlx *mx)
 {
-	mx->mouse.x = x;
-	mx->mouse.y = y;
-	if (mx->fractal->type == 2 && !mx->lock)
+	if ((50 * (clock() - mx->clock_var)) / CLOCKS_PER_SEC > 1)
 	{
-		mx->fractal->var = (mx->mouse.x + mx->mouse.y) / 10;
-		ft_display(mx);
+		mx->mouse.x = x;
+		mx->mouse.y = y;
+		if (mx->fractal->type == 2 && !mx->lock)
+		{
+			mx->fractal->var = (mx->mouse.x + mx->mouse.y) / 10;
+			ft_display(mx);
+		}
+		mx->clock_var = clock();
 	}
 	return (0);
 }
@@ -114,7 +118,7 @@ int				key_loop_hook(t_mlx *mx)
 			mx->fractal->z /= 1.5;
 		if (mx->less && mx->fractal->z < 1.0 / 255)
 			mx->fractal->z *= 1.5;
-		if (mx->i_more && mx->fractal->iter_max < 130)
+		if (mx->i_more && mx->fractal->iter_max < 150)
 			++mx->fractal->iter_max;
 		if (mx->i_less && mx->fractal->iter_max > 30)
 			--mx->fractal->iter_max;
