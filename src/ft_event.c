@@ -6,7 +6,7 @@
 /*   By: kperreau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 18:58:11 by kperreau          #+#    #+#             */
-/*   Updated: 2016/06/28 17:41:42 by kperreau         ###   ########.fr       */
+/*   Updated: 2016/10/21 16:07:48 by kperreau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				key_release_hook(int keycode, t_mlx *mx)
 
 int				mouse_hook(int x, int y, t_mlx *mx)
 {
-	if ((50 * (clock() - mx->clock_var)) / CLOCKS_PER_SEC > 1)
+	if ((100 * (clock() - mx->clock_var)) / CLOCKS_PER_SEC > 1)
 	{
 		mx->mouse.x = x;
 		mx->mouse.y = y;
